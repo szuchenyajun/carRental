@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.szu.car_rental.mapper.CarMapper">
+    <select id="getNumberOfPassenger" statementType="CALLABLE" parameterType="integer" resultType="cn.szu.car_rental.bean.Car">
+        {CALL Number_of_Passengers(#{number,mode=IN})}
+    </select>
+
+    <select id="getRentalTrend" statementType="CALLABLE" resultMap="partCarMap">
+        {call Rental_Trends() }
+    </select>
+<resultMap id="partCarMap" type="hashmap">
+    <result property="make" column="make"></result>
+    <result property="model" column="model"/>
+    <result property="isStudent" column="isStudent"/>
+    <result property="NumOfTimesRented" column="numberOfTimeRented"/>
+</resultMap>
+    <select id="getCarById" parameterType="integer" resultType="cn.szu.car_rental.bean.Car">
+        select car_Id,price_Per_Hour,price_Per_Day from car where car_Id = #{carId}
+    </select>
+</mapper>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>Editable Table</title>
+
+  <!--data table-->
+  <link rel="stylesheet" th:href="@{/js/data-tables/DT_bootstrap.css}" />
+
+  <div th:include="/common::common_head"> </div>
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div th:replace="/common::left_side"></div>
+    <!-- left side end-->
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div th:replace="/common::main_header"></div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                Editable Table
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a th:href="@{a}">Dashboard</a>
+                </li>
+                <li>
+                    <a th:href="@{a}">Data Table</a>
+                </li>
+                <li class="active"> Editable Table </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+             <div class="row">
+                <div class="col-sm-12">
+                <section class="panel">
+                <header class="panel-heading">
+                    Editable Table
+                    <span class="tools pull-right">
+                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                        <a href="javascript:;" class="fa fa-times"></a>
+                     </span>
+                </header>
+                <div class="panel-body">
+                <div class="adv-table editable-table ">
+                <div class="clearfix">
+                    <div class="btn-group">
+                        <form class="form-inline" id="form1" action="#" method="#">
+                            <div class="form-group">
+                                <label for="numPassenger">按乘员数查找</label>
+                                <input type="text" name="number" class="form-control" style="width: 100px"  id="numPassenger" >
+                            </div>
+                            <button type="button" id="btn1" onclick="query1()" class="btn btn-default">查询</button>
+                        </form>
+
+
+                    </div>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools <i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a th:href="@{/car/updatePrice}">每天增加5美元，每小时增加0.5美元</a></li>
+                            <li><a th:href="@{/car/ldPrice}">恢复原价</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="space15"></div>
+                <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                <thead>
+                <tr >
+                    <th >Car Id</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Number Of Passengers</th>
+                    <th>Description</th>
+                    <th>Price Per Hour</th>
+                    <th>Price Per Day</th>
+                    <th>Rental</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+<!--                <tr class="" th:each="car:${cars}">-->
+<!--                    <td th:text="${car.carId}"></td>-->
+<!--                    <td th:text="${car.make}"></td>-->
+<!--                    <td th:text="${car.model}"></td>-->
+<!--                    <td th:text="${car.numOfPassengers}" class="center">Lorem ipsume</td>-->
+<!--                    <td th:text="${car.description}"></td>-->
+<!--                    <td th:text="${car.pricePerHour}"></td>-->
+<!--                    <td th:text="${car.pricePerDay}"></td>-->
+<!--                    <td><a class="edit" href="javascript:;">rent</a></td>-->
+
+<!--                </tr>-->
+
+                </tbody>
+                </table>
+                </div>
+                </div>
+                </section>
+                </div>
+                </div>
+        </div>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer>
+            2014 &copy; AdminEx by ThemeBucket
+        </footer>
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<script th:replace="/common::common_scripts"></script>
+
+<!--data table-->
+<!--<script type="text/javascript" th:src="@{/js/data-tables/jquery.dataTables.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/data-tables/DT_bootstrap.js}"></script>
+
+
+
+<!--script for editable table-->
+<!--<script th:src="@{/js/editable-table.js}"></script>-->
+
+<!-- END JAVASCRIPTS -->
+<!--<script>-->
+<!--    jQuery(document).ready(function() {-->
+<!--        EditableTable.init();-->
+<!--    });-->
+<!--</script>-->
+<script th:inline="javascript">
+
+    $(function (){
+       // alert("hello");
+        var path = "http://localhost:8080";
+       $.ajax({
+           url:path+"/car/getAllCar",
+           data:null,
+           type:"get",
+           success:function (result){
+                //解析显示car数据
+               showCar(result);
+           }
+       })
+    });
+
+    function showCar(result){
+        var cars = result;
+        $.each(cars,function (index,items){
+            var carIdTd = $("<td></td>").append(items.carId);
+            var makeTd = $("<td></td>").append(items.make);
+            var modelTd = $("<td></td>").append(items.model);
+            var numOfPassTd = $("<td></td>").append(items.numOfPassengers);
+
+            var descriptionTd = $("<td></td>").append(items.description);
+            var pricePerHourTd = $("<td></td>").append('$'+ items.pricePerHour);
+            var pricePerDayTd = $("<td></td>").append('$'+ items.pricePerDay);
+            var btnTd = $("<button></button>").addClass("btn btn-primary btn-sm edit")
+                                                .append($("<span></span>").addClass("glyphicon glyphicon-ok-sign"));
+            $("<tr></tr>").append(carIdTd)
+                          .append(makeTd)
+                            .append(modelTd)
+                            .append(numOfPassTd)
+                            .append(descriptionTd)
+                            .append(pricePerHourTd)
+                            .append(pricePerDayTd)
+                            .append(btnTd)
+                            .appendTo("#editable-sample tbody");
+        })
+    }
+</script>
+<script>
+    function query1(){
+        var path1 = "http://localhost:8080";
+        $.ajax({
+            url:path1+"/car/getByPassengerJson",
+            data:$("#form1").serialize(),
+            type:"post",
+            dataType:"json",
+            success:function (result){
+                $("#editable-sample tbody").empty();
+                //解析显示car数据
+                showCar(result);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" th:href="@{/}" type="image/png">
+
+    <title>Basic Table</title>
+    <div th:include="/common::common_head"> </div>
+
+</head>
+
+<body class="sticky-header">
+    <section>
+        <!-- left side start-->
+        <div th:replace="/common::left_side"></div>
+        <!-- 左侧结束-->
+
+        <!-- main content start-->
+        <div class="main-content">
+
+            <!-- 头部分开始-->
+            <div th:replace="/common::main_header"></div>
+            <!-- 头部分结束-->
+
+            <!-- 页面标题开始-->
+            <div class="page-heading">
+                <h3>Basic Table</h3>
+                <ul class="breadcrumb">
+                    <li>
+                        <a th:href="@{/}">Dashboard</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/}">Data Table</a>
+                    </li>
+                    <li class="active">Basic Table</li>
+                </ul>
+            </div>
+            <!-- 页面标题结束-->
+
+            <!--内容区域开始-->
+            <div class="wrapper">
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <section class="panel">
+                            <header class="panel-heading no-border">
+                                Border Table
+                                <span class="tools pull-right">
+                                    <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                    <a href="javascript:;" class="fa fa-times"></a>
+                                </span>
+                            </header>
+                            <div class="panel-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Make</th>
+                                        <th>Model</th>
+                                        <th>isStudent</th>
+                                        <th>NumberOfTimesRented</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="maps:${map}">
+
+                                        <td class="hidden-phone" th:text="${maps['make']}">Lorem Ipsum dorolo</td>
+                                        <td th:text="${maps['model']}">556.00$</td>
+                                        <td th:text="${maps['is_student']}==1?'TRUE':'FALSE'">556.00$</td>
+                                        <td th:text="${maps['Number_of_Times_Rented']}">556.00$</td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+            <!--内容区域结束-->
+
+            <!--footer  start-->
+            <footer>2014 &copy; AdminEx by ThemeBucket</footer>
+            <!--footer  end--> </div>
+        <!-- main content end--> </section>
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <script th:replace="common::common_scripts"></script>
+
+</body>
+
+</html>

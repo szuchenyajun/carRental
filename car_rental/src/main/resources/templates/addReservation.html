@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>Form Layouts</title>
+    <div th:include="/common::common_head"> </div>
+
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div th:replace="/common::left_side"></div>
+    <!-- left side end-->
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div th:replace="/common::main_header"></div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                Forms Layouts
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Forms</a>
+                </li>
+                <li class="active"> Forms Layouts </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        <section class="wrapper">
+        <!-- page start-->
+
+
+        <div class="row">
+        <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Form Elements
+            </header>
+            <div class="panel-body">
+                <form th:action="@{/reservation/add}" class="form-horizontal adminex-form" method="post">
+                    <div class="form-group">
+                        <label for="pikcUp" class="col-sm-2 col-sm-2 control-label">Pick Up</label>
+                        <div class="col-sm-6">
+                            <input type="datetime-local" step="1" id="pikcUp" name="pickUp" class="form-control round-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dropOff" class="col-sm-2 col-sm-2 control-label">Drop Off</label>
+                        <div class="col-sm-6">
+                            <input type="datetime-local" step="1" id="dropOff" name="dropOff" class="form-control tooltips" data-trigger="hover" data-toggle="tooltip" title="" placeholder="Hover me" data-original-title="Tooltip goes here">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectAddressId" class="col-sm-2 col-sm-2 control-label">Location Address</label>
+                        <div class="col-sm-6">
+                            <select id="selectAddressId" class="form-control" name="locationId">
+
+                                <option th:each="location:${locations}" th:value="${location.locationId}">
+                                    [[${location.streetAddress}]]
+                                </option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectId" class="col-sm-2 col-sm-2 control-label">valuateModel</label>
+                        <div class="col-sm-6">
+                            <select id="selectId" class="form-control" name="valuateModel" >
+                                <option value="1">HOUR</option>
+                                <option value="0">DAY</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6 col-sm-offset-2">
+                            <input type="hidden" name="carId" th:value="${carId}">
+                            <input type="hidden" name="customerId" th:value="${session.customer.customerId}">
+                            <button id="btn1" type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        </div>
+        </div>
+
+        <!-- page end-->
+        </section>
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer>
+            2014 &copy; AdminEx by ThemeBucket
+        </footer>
+        <!--footer section end-->
+
+
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script th:replace="common::common_scripts"></script>
+
+
+
+</body>
+</html>

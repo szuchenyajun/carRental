@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="car_rental" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="car_rental" target="1.8" />
+      <module name="middleware3" target="1.8" />
+      <module name="middleware4" target="1.8" />
+      <module name="mw2" target="8" />
+      <module name="myJUC" target="8" />
+      <module name="netty-demo" target="8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

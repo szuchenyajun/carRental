@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.szu.car_rental.mapper.CustomerMapper">
+    <select id="getCustomerOnProbation" statementType="CALLABLE" resultMap="customerMap">
+        {call Customers_on_probation()}
+    </select>
+    <resultMap id="customerMap" type="cn.szu.car_rental.bean.Customer">
+        <result property="lastName" column="last_name"></result>
+        <result property="firstName" column="first_name"></result>
+        <result property="email" column="email_Address"></result>
+    </resultMap>
+</mapper>

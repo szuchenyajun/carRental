@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.szu.car_rental.mapper.ReservationMapper">
+    <select id="getReservationByYearMonth"  parameterType="integer" resultMap="reservationMap">
+        SELECT * FROM reservation
+        WHERE YEAR(Reserved_date) = #{arg0} AND MONTH(Reserved_date) = #{arg1};
+    </select>
+
+<resultMap id="reservationMap" type="cn.szu.car_rental.bean.Reservation">
+    <id property="reservationNo" column="reservation_no"/>
+    <result property="reservedDate" column="reserved_date"/>
+    <result property="pickUp" column="pick_up"/>
+    <result property="dropOff" column="drop_off"/>
+    <result property="valuateModel" column="valuate_By_Hour"/>
+    <association property="customer" javaType="cn.szu.car_rental.bean.Customer" >
+        <id property="customerId" column="customer_id"/>
+    </association>
+<!--    colum指示传入子查询的值-->
+    <association property="car" column="car_id" javaType="cn.szu.car_rental.bean.Car" select="cn.szu.car_rental.mapper.CarMapper.getCarById">
+   </association>
+
+
+    <association property="location" javaType="cn.szu.car_rental.bean.Location">
+        <id property="locationId" column="location_id"/>
+    </association>
+</resultMap>
+    <select id="getReservationPrice" resultMap="reservationMap">
+        select * from reservation;
+    </select>
+
+    <insert id="a" parameterType="cn.szu.car_rental.bean.Reservation">
+
+    </insert>
+
+</mapper>
